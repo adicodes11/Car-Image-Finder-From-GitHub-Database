@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Image Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #image-container {
+            margin-top: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        #download-button {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Car Image Finder</h1>
+    <form id="search-form">
+        <label for="model-name">Car Model Name:</label>
+        <input type="text" id="model-name" name="model-name" required>
+        <br><br>
+        <label for="color-name">Color Name:</label>
+        <input type="text" id="color-name" name="color-name" required>
+        <br><br>
+        <button type="submit">Search</button>
+    </form>
+
+    <div id="image-container">
+        <img id="car-image" src="" alt="" style="display:none;">
+        <a id="download-button" href="" download="image.png">Download Image</a>
+    </div>
+
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const modelName = document.getElementById('model-name').value.trim().toLowerCase();
+            const colorName = document.getElementById('color-name').value.trim().toLowerCase();
+
+            if (modelName && colorName) {
+                const imageName = modelName.replace(/\s+/g, '_') + '_' + colorName;
+                const imageUrl = `https://github.com/adicodes11/Car-Image-Database/blob/main/${imageName}.png?raw=true`;
+
+                const imageElement = document.getElementById('car-image');
+                const downloadButton = document.getElementById('download-button');
+
+                imageElement.src = imageUrl;
+                imageElement.style.display = 'block';
+                downloadButton.href = imageUrl;
+                downloadButton.style.display = 'inline';
+            }
+        });
+    </script>
+</body>
+</html>
